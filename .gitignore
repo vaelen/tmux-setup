@@ -1,0 +1,12 @@
+# tmux runtime / plugin install location (should never live inside this repo,
+# but ignore in case someone clones TPM here by accident)
+plugins/
+resurrect/
+
+# macOS
+.DS_Store
+
+# Editor backups
+*~
+*.swp
+*.bak.*
