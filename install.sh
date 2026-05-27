@@ -53,7 +53,13 @@ else
 fi
 
 # 5. Headless plugin install.
+# `tmux start-server` is a no-op if a server is already running, so a
+# pre-existing server with a stale env (e.g. started before the symlink
+# existed) won't have TMUX_PLUGIN_MANAGER_PATH set and install_plugins
+# would abort with "FATAL: Tmux Plugin Manager not configured in tmux.conf".
+# Set it explicitly to TPM's XDG default before invoking.
 log "installing/updating plugins via TPM"
+tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$CFG_DIR/plugins/"
 "$TPM_DIR/bin/install_plugins"
 
 # 6. Resurrect state dir.
